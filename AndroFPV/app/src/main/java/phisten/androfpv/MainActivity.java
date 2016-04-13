@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         DectectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //發出探索封包
             }
         });
 
