@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">AndroFPV</string>
     <string name="action_settings">Settings</string>
+
+    <string name="textview_LocalIP">LocalIP</string>
+    <string name="textview_ImageSize">ImageSize</string>
+    <string name="textview_JpgeQuality">JpgeQuality</string>
+    <string name="textview_DataSocketCount">DataSocketCount</string>
+    <string name="textview_FPS">FPS</string>
+    <string name="textview_SendBytes">SendBytes/s</string>
+    <string name="textview_ReciveBytes">ReciveBytes/s</string>
+
+
+
 </resources>

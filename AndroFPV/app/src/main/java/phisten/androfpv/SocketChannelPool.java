@@ -5,6 +5,7 @@ import android.os.Message;
 import android.util.Log;
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
@@ -32,7 +33,7 @@ public class SocketChannelPool {
     public ArrayList<DatagramChannel> DataChannels;
 
     //Connect Info
-    private String LocalIP;
+    public String LocalIP;
     InetSocketAddress RemoteISA;
     private String RemoteIP;
     protected Handler handler;
@@ -51,8 +52,25 @@ public class SocketChannelPool {
 
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
+    private Runnable SocketChannelRun = new Runnable() {
+        @Override
+        public void run() {
+
+        }
+    };
+    private Runnable SocketChannelRun2 = new Runnable() {
+        @Override
+        public void run() {
+
+        }
+    };
+
+
 
     public int SetRemoteIP(String host)
     {
@@ -73,6 +91,9 @@ public class SocketChannelPool {
         detectPacketBuf.flip();
 
         //TODO 廣播探索封包
+
+        Log.d("test", "DetectServer: " +  Inet4Address.getLocalHost().toString());
+
         DetecterChannel.send(detectPacketBuf,InetSocketAddress.createUnresolved("192.168.0.255",DetecterChannelPort));
 
         return 0;

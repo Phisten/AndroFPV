@@ -53,6 +53,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="LocalIP: "
+            android:id="@+id/textView_LocalIP" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="ImageSize: "
             android:id="@+id/textView_ImageSize" />
 
