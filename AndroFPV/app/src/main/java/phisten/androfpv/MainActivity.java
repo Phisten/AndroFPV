@@ -1,5 +1,6 @@
 package phisten.androfpv;
 
+import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -11,10 +12,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     static final String LogTag_Error = "Error";
+    private static Toast toast;
 
+    private static void makeTextAndShow(final Context context, final String text, final int duration) {
+        if (toast == null) {
+            //如果還沒有用過makeText方法，才使用
+            toast = android.widget.Toast.makeText(context, text, duration);
+        } else {
+            toast.setText(text);
+            toast.setDuration(duration);
+        }
+        toast.show();
+    }
 
     SocketChannelPool scp = SocketChannelPool.getInstance();
 
@@ -39,16 +52,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //發出探索封包,請求IP回報
                 SocketChannelPool scp;
-                byte[] localIpBytes;
+                int[] localIpInt;
                 try {
                     scp = SocketChannelPool.getInstance();
 
                     //本機IP轉換為網段下廣播
                     String localIP = scp.LocalIP;
-                    localIpBytes =  scp.HostIpConvertToBytes(localIP);
-                    localIpBytes[3] = 0;
-                    String broadcastIP = scp.HostIpConvertToString(localIpBytes);
+                    localIpInt =  scp.HostIpConvertToInts(localIP);
+                    localIpInt[3] = 255;
+                    String broadcastIP = scp.HostIpConvertToString(localIpInt);
 
+                    makeTextAndShow(getApplicationContext(),"DetectTargetIP = " + broadcastIP,Toast.LENGTH_SHORT);
+                    scp.DetectServer(broadcastIP);
+                    //makeTextAndShow(getApplicationContext(),scp.HostIpConvertToString(scp.HostIpConvertToBytes(localIP)),Toast.LENGTH_SHORT);
+                    //scp.DetectServer();
 
                 } catch (Exception e) {
                     e.printStackTrace();
